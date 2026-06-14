@@ -1,0 +1,8 @@
+{
+  "name": "The Udaan",
+  "description": "Accessibility Hub helping PwDs and senior citizens in Ranchi & Jamshedpur navigate government schemes, get UDID cards, and make optimal decisions using AI-driven guides.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
