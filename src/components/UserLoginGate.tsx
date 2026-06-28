@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { Mail, User, ShieldCheck, CheckCircle2, Send, AlertCircle, RefreshCw } from 'lucide-react';
 import { City } from '../types';
 import { TRANSLATIONS } from '../translations';
+import emailjs from '@emailjs/browser';
 
 interface UserLoginGateProps {
   onLoginSuccess: (user: { name: string; email: string; loggedIn: boolean; city: City; lastLog: any }) => void;
@@ -34,16 +35,17 @@ export default function UserLoginGate({ onLoginSuccess, currentCity, language }:
     setErrorMessage('');
     
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: userName,
-          email: userEmail,
-          city: currentCity
-        })
-      });
-
+      const response = await emailjs.send(
+          'service_08ohh49',      // from emailjs dashboard
+          'template_c96jf9v',     // from emailjs dashboard
+          {
+            to_email: email,
+            user_name: name,
+            user_city: city,
+            login_time: new Date().toISOString(),
+          },
+          'SENfmGvtGYVPHx7pO'       // from emailjs dashboard
+        );
       const data = await response.json();
       if (response.ok && data.success) {
         setSuccessData(data);
