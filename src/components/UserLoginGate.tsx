@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { Mail, User, ShieldCheck, CheckCircle2, Send, AlertCircle, RefreshCw } from 'lucide-react';
 import { City } from '../types';
 import { TRANSLATIONS } from '../translations';
+import emailjs from '@emailjs/browser';
 
 interface UserLoginGateProps {
   onLoginSuccess: (user: { name: string; email: string; loggedIn: boolean; city: City; lastLog: any }) => void;
@@ -34,15 +35,17 @@ export default function UserLoginGate({ onLoginSuccess, currentCity, language }:
     setErrorMessage('');
     
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: userName,
-          email: userEmail,
-          city: currentCity
-        })
-      });
+      const response = await emailjs.send(
+          'service_08ohh49',      // from emailjs dashboard
+          'template_c96jf9v',     // from emailjs dashboard
+          {
+            to_email: email,
+            user_name: name,
+            user_city: city,
+            login_time: new Date().toISOString(),
+          },
+          'SENfmGvtGYVPHx7pO'       // from emailjs dashboard
+        );
 
       const data = await response.json();
       if (response.ok && data.success) {
@@ -175,8 +178,8 @@ export default function UserLoginGate({ onLoginSuccess, currentCity, language }:
               </p>
               <p className="text-[11px] text-slate-550 font-normal leading-relaxed">
                 {language === 'hi'
-                  ? `एक आधिकारिक सुगमता ब्रीफिंग ${successData.user.email} और sainikdutta87@gmail.com पर भेज दी गई है।`
-                  : `An official accessibility briefing is flying to ${successData.user.email} with CC to sainikdutta87@gmail.com.`}
+                  ? `एक आधिकारिक सुगमता ब्रीफिंग ${successData.user.email} और redwavecabs@gmail.com पर भेज दी गई है।`
+                  : `An official accessibility briefing is flying to ${successData.user.email} with CC to @gmail.com.`}
               </p>
             </div>
 
@@ -188,7 +191,7 @@ export default function UserLoginGate({ onLoginSuccess, currentCity, language }:
               <div className="text-[10px] text-slate-500 font-light space-y-1 my-1 leading-snug">
                 <div><strong className="text-slate-650">Sender:</strong> &lt;system.udaan@redwave.jh&gt;</div>
                 <div><strong className="text-slate-650">Recipient To:</strong> {successData.user.email}</div>
-                <div><strong className="text-slate-650">Recipient CC:</strong> sainikdutta87@gmail.com</div>
+                <div><strong className="text-slate-650">Recipient CC:</strong> redwavecabs@gmail.com</div>
                 <div><strong className="text-slate-650">Mail Subject:</strong> {successData.transparencyLog.subject}</div>
                 <div className="pt-1.5 border-t border-slate-100/50 mt-1 italic text-[9px] text-slate-400 font-mono">
                   {language === 'hi' 

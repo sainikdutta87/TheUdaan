@@ -63,7 +63,7 @@ async function startServer() {
 
     try {
       const response = await ai.models.generateContent({
-        model: 'gemini-3.5-flash',
+        model: 'gemini-2.0-flash',
         contents: `
           You are a professional disability consultant representing "The Udaan Accessibility Hub", a Red Wave initiative in Ranchi and Jamshedpur, Jharkhand.
           Analyze this user's situation and generate a decision/recommendation profile to help the person with a disability achieve all maximum benefits.
@@ -198,7 +198,7 @@ async function startServer() {
 
     const loginTime = new Date().toISOString();
     const targetCity = city === 'ranchi' ? 'Ranchi' : 'Jamshedpur';
-    const specificEmail = 'sainikdutta87@gmail.com';
+    const specificEmail = 'redwavecabs@gmail.com';
 
     // Build the accessibility briefing content
     const emailSubject = `🔐 The Udaan Hub - Access Confirmation for ${name}`;
@@ -250,7 +250,7 @@ async function startServer() {
 
         <div style="text-align: center; color: #94a3b8; font-size: 10px; border-top: 1px solid #e2e8f0; padding-top: 15px; margin-top: 25px;">
           <p style="margin: 0;">Sent automatically by The Udaan Platform. Registered to Indian National Disability Schemes portal.</p>
-          <p style="margin: 5px 0 0 0;">Recipient CC: sainikdutta87@gmail.com</p>
+          <p style="margin: 5px 0 0 0;">Recipient CC: redwavecabs@gmail.com</p>
         </div>
       </div>
     `;
