@@ -36,19 +36,19 @@ export default function UserLoginGate({ onLoginSuccess, currentCity, language }:
     
     try {
       const response = await emailjs.send(
-          'service_08ohh49',      // from emailjs dashboard
-          'template_c96jf9v',     // from emailjs dashboard
-          {
-            to_email: email,
-            user_name: name,
-            user_city: city,
-            login_time: new Date().toISOString(),
-          },
-          'SENfmGvtGYVPHx7pO'       // from emailjs dashboard
-        );
+        'service_08ohh49',
+        'template_c96jf9v',
+        {
+          to_email: userEmail,
+          user_name: userName,
+          user_city: currentCity,
+          login_time: new Date().toISOString(),
+        },
+        'SENfmGvtGYVPHx7pO'
+      );
 
       const data = await response.json();
-      if (response.ok && data.success) {
+      if (response.status === 200) {
         setSuccessData(data);
         setTimeout(() => {
           onLoginSuccess({
